@@ -1,10 +1,6 @@
-import os
+from read_input import read_input
 
-input_txt = os.path.join(os.path.dirname(__file__), "input.txt")
-lines: list[str] = []
-
-with open(input_txt, "r") as f:
-    lines = f.read().splitlines()
+lines = read_input("input.txt")
     
 
 class Elf:
