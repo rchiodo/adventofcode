@@ -2,21 +2,26 @@ from read_input import read_input
 
 lines = read_input("input3.txt")
 
-line_length_tuples = [(x, int(len(x) /2) , len(x)) for x in lines]
+indices = [index * 3 for index in range(0, int(len(lines) / 3))]
 
-buckets = [(t[0][0:t[1]], t[0][t[1]:t[2]]) for t in line_length_tuples]
+groups = [lines[x:x+3] for x in indices]
 
-priority_sum = 0
+def find_common(group: list[str]) -> str:
+    common = set(group[0])
+    for c in group[0]:
+        if (not c in group[1] or not c in group[2]) and c in common:
+            common.remove(c)
+    return common.pop()
 
-for b in buckets:
-    already_found = set()
-    for c in b[0]:
-        if c in b[1] and not c in already_found:
-            already_found.add(c)
-            if c >= 'A' and c <= 'Z':
-                priority_sum += ord(c) - ord('A') + 27
-            else:
-                priority_sum += ord(c) - ord('a') + 1
+def priority(c: str):
+    if c >= 'A' and c <= 'Z':
+        return ord(c) - ord('A') + 27
+    else:
+        return ord(c) - ord('a') + 1
 
 
-print("Dupe priority sum is " + str(priority_sum))
+group_badges = [find_common(g) for g in groups]
+
+priority_sum = sum([priority(b) for b in group_badges])
+
+print("Priority sum is " + str(priority_sum))
