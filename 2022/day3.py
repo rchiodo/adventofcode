@@ -7,11 +7,7 @@ indices = [index * 3 for index in range(0, int(len(lines) / 3))]
 groups = [lines[x:x+3] for x in indices]
 
 def find_common(group: list[str]) -> str:
-    common = set(group[0])
-    for c in group[0]:
-        if (not c in group[1] or not c in group[2]) and c in common:
-            common.remove(c)
-    return common.pop()
+    return set(group[0]).intersection(group[1], group[2]).pop()
 
 def priority(c: str):
     if c >= 'A' and c <= 'Z':
