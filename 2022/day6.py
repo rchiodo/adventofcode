@@ -1,7 +1,6 @@
 from read_input import read_input
 
 line = read_input("input6.txt")[0]
-prev3 = line[0:3]
 
 def find_unique(length: int): 
     for i in range(length, len(line)-1):
